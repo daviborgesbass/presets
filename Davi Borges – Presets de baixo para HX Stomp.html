@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Davi Borges – Presets de baixo para HX Stomp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;600;700&family=Jost:wght@300&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#0b0d0a;--surface:#141811;--ink:#e8ebe0;--muted:#9fa78e;--sun:#7d8f3f;--sun-ink:#0b0d0a;--line:#262d1f;--string:#c9cdb8;--inlay:#262d1f;--wood:#11140e;--glow:rgba(125,143,63,.2);
+  --display:"Anton","Impact","Arial Narrow",sans-serif;--body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 4rem);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.95;margin:0;letter-spacing:.01em}
+h1{font-size:clamp(3.8rem,20vw,9.5rem)}
+h2{font-size:clamp(2.2rem,8vw,3.6rem)}
+p{margin:0}
+a:focus-visible,button:focus-visible,.neck:focus-visible,summary:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+
+/* Barra do topo */
+.top{display:flex;align-items:center;justify-content:space-between;padding:1rem 0}
+.brand{font-family:var(--display);font-size:1.4rem;text-transform:uppercase;letter-spacing:.02em}
+.btn{display:inline-block;background:var(--sun);color:var(--sun-ink);font-weight:700;text-decoration:none;padding:.9rem 1.5rem;border-radius:.3rem;font-size:1rem;border:0;cursor:pointer;transition:transform .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn.small{padding:.55rem 1rem;font-size:.9rem}
+
+/* Hero */
+.hero{position:relative;padding:1.5rem 0 1rem}
+.hero::before{content:"";position:absolute;z-index:-1;right:-30%;top:-10%;width:75%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 68%)}
+.hero .lead{max-width:34rem;margin-top:1.5rem;color:var(--muted);font-size:1.2rem}
+
+/* Braço do baixo */
+.neck{position:relative;margin:2.25rem -1.25rem 1.25rem;background:var(--wood);border-block:1px solid var(--line);cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none}
+.neck svg{display:block;width:100%;height:10rem}
+.neck .nut{fill:var(--ink);opacity:.85}
+.neck .fret{stroke:var(--line);stroke-width:2}
+.neck .dot{fill:var(--inlay)}
+.neck .str{stroke:var(--string);fill:none;stroke-linecap:round}
+.neck .str.hit{animation:vib .9s ease-out}
+@keyframes vib{0%{transform:translateY(0)}8%{transform:translateY(-5px)}20%{transform:translateY(4px)}35%{transform:translateY(-3px)}55%{transform:translateY(2px)}75%{transform:translateY(-1px)}100%{transform:none}}
+.hint{font-size:.9rem;color:var(--muted)}
+.hero-cta{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.75rem 1.25rem;align-items:center}
+.hero-cta span{color:var(--muted);font-size:.95rem}
+
+section{padding:3.5rem 0}
+.head{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.75rem}
+.head p{color:var(--muted);max-width:32rem}
+
+/* Pedal minimalista, em traço, como o desenho da caixa */
+.pedal{--ln:#6b7d3f;background:#050605;border:1.5px solid var(--ln);border-radius:.3rem;padding:.7rem .7rem .8rem;max-width:34rem}
+.top-row{display:grid;grid-template-columns:1.7fr 1fr;gap:.8rem}
+.lcd{border:1.5px solid var(--ln);border-radius:.2rem;padding:.35rem;display:flex;flex-direction:column;gap:.2rem}
+.lcd-head{display:flex;justify-content:space-between;font-size:.62rem;color:#6b7d3f;font-weight:600;padding:0 .3rem}
+.lcd-list{display:flex;flex-direction:column;gap:.15rem}
+.row{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:.5rem;align-items:center;padding:.14rem .4rem;border-radius:.15rem;font-size:.76rem;line-height:1.2;font-weight:600;color:var(--ln);-webkit-tap-highlight-color:transparent}
+.row b{font-family:var(--display);font-weight:400;opacity:.6}
+.row[aria-pressed="true"]{background:#7d8f3f;color:#050605}
+.row:focus-visible,.knob:focus-visible,.foot:focus-visible{outline:2px solid #7d8f3f;outline-offset:3px}
+.row:focus-visible{outline-offset:1px}
+.side{display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:.5rem}
+.mark{display:flex;align-items:baseline;justify-content:center;gap:.6em;white-space:nowrap;color:var(--ln);font-family:"Jost","Futura","Century Gothic",system-ui,sans-serif;font-weight:300;font-size:.78rem;letter-spacing:.22em;margin-right:-.22em}
+.mark span{font-size:1.2em;letter-spacing:.08em}
+.mark small{font-size:1em}
+.knob{position:relative;display:block;border-radius:50%;padding:0;background:transparent;border:1.5px solid var(--ln);transition:transform .3s ease}
+.knob::after{content:"";position:absolute;left:50%;top:.3rem;width:1.5px;height:28%;background:var(--ln);transform:translateX(-50%)}
+.knob.big{width:3.2rem;height:3.2rem;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.led{width:.5rem;height:.5rem;border-radius:50%;border:1.5px solid var(--ln);transition:background .2s,border-color .2s}
+.fs{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.7rem;justify-items:center}
+.foot{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:.3rem;-webkit-tap-highlight-color:transparent}
+.sw{position:relative;display:grid;place-items:center;font-size:1.4rem;line-height:1;color:var(--ln);width:2.8rem;height:2.8rem;border-radius:50%;border:1.5px solid var(--ln);transition:transform .1s}
+.sw::after{content:"";position:absolute;inset:.4rem;border:1.5px solid var(--ln);border-radius:50%}
+.foot:active .sw{transform:scale(.94)}
+.foot .nm2{font-size:.72rem;color:#6b7d3f;font-weight:600}
+.foot.on .led{background:#7d8f3f;border-color:#7d8f3f}
+.caption{margin-top:1.6rem}
+.caption strong{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:1.8rem;color:var(--sun);letter-spacing:.02em}
+.caption p{color:var(--muted);margin-top:.2rem}
+
+/* Compra */
+.buy{display:grid;gap:1.25rem;margin-top:1.75rem}
+@media (min-width:44rem){.buy{grid-template-columns:1fr auto;align-items:end}}
+.buy-info h3{font-size:clamp(2.2rem,7vw,3rem)}
+.buy-info p{color:var(--muted);margin-top:.5rem;max-width:30rem}
+.buy-act{display:flex;flex-direction:column;gap:.75rem}
+@media (min-width:44rem){.buy-act{align-items:flex-end;text-align:right}}
+.price{font-family:var(--display);font-size:4rem;line-height:1;color:var(--sun)}
+.tag{font-weight:600;font-size:.9rem;color:var(--muted)}
+.included{margin:1.5rem 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:.5rem}
+.included li{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:.35rem .85rem;font-size:.92rem;font-weight:600}
+
+/* Como funciona */
+.how{display:grid;gap:1rem}
+@media (min-width:44rem){.how{grid-template-columns:repeat(3,1fr)}}
+.how div{background:var(--surface);border:1px solid var(--line);border-radius:.5rem;padding:1.25rem 1.25rem 1.5rem}
+.how b{font-family:var(--display);font-weight:400;font-size:3rem;line-height:1;color:var(--sun);display:block;margin-bottom:.5rem}
+.how h3{font-size:1.5rem;margin-bottom:.4rem}
+.how p{color:var(--muted)}
+
+/* Dúvidas */
+details{border-top:1px solid var(--line);padding:1.1rem 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--sun);font-size:1.5rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p{margin-top:.6rem;color:var(--muted);max-width:44rem}
+
+footer{padding:2.5rem 0 4rem;color:var(--muted);font-size:.95rem}
+
+/* Barra de compra fixa no celular */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding:.7rem 1.25rem calc(.7rem + env(safe-area-inset-bottom,0px));display:flex;align-items:center;justify-content:space-between;gap:1rem;transform:translateY(110%);transition:transform .25s ease}
+.sticky.on{transform:none}
+.sticky b{font-family:var(--display);font-weight:400;font-size:1.6rem;display:block;line-height:1}
+.sticky small{color:var(--muted)}
+@media (min-width:44rem){.sticky{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.neck .str.hit{animation:none}.btn,.sticky,.led,.cap,.knob,.sw{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <span class="brand">Davi Borges</span>
+    <a class="btn small" href="#packs">Ver o pack</a>
+  </div>
+
+  <header class="hero">
+    <h1>Presets<br>para sua<br>HX Stomp</h1>
+    <p class="lead">Timbres de baixo prontos para a sua Line 6 HX Stomp. Você carrega, ajusta o volume e toca. Sem passar horas mexendo em botões. Presets feitos por Davi Borges.</p>
+    <div class="neck" id="neck" role="button" tabindex="0" aria-label="Toque nas cordas para ouvir o baixo">
+      <svg viewBox="0 0 600 140" preserveAspectRatio="none" aria-hidden="true">
+        <rect class="nut" x="0" y="0" width="8" height="140"/>
+        <line class="fret" x1="100" y1="0" x2="100" y2="140"/><line class="fret" x1="200" y1="0" x2="200" y2="140"/>
+        <line class="fret" x1="300" y1="0" x2="300" y2="140"/><line class="fret" x1="400" y1="0" x2="400" y2="140"/>
+        <line class="fret" x1="500" y1="0" x2="500" y2="140"/>
+        <circle class="dot" cx="250" cy="70" r="9"/><circle class="dot" cx="450" cy="70" r="9"/>
+        <line class="str" x1="0" y1="25" x2="600" y2="25" stroke-width="6"/>
+        <line class="str" x1="0" y1="53" x2="600" y2="53" stroke-width="4.5"/>
+        <line class="str" x1="0" y1="85" x2="600" y2="85" stroke-width="3.2"/>
+        <line class="str" x1="0" y1="117" x2="600" y2="117" stroke-width="2.2"/>
+      </svg>
+    </div>
+    <p class="hint">Toque nas cordas.</p>
+    <div class="hero-cta">
+      <a class="btn" href="#packs">Ver o pack</a>
+      <span>Pix e entrega por link na hora</span>
+    </div>
+  </header>
+
+  <section id="packs">
+    <div class="head">
+      <h2>Seu pack</h2>
+      <p>Toque na tela do pedal para ver o que cada preset faz.</p>
+    </div>
+    <div class="pedal" role="group" aria-label="Presets do pack">
+      <div class="top-row">
+        <div class="lcd">
+          <div class="lcd-head"><span id="lcdTitle"></span><span id="lcdCount"></span></div>
+          <div class="lcd-list" id="keys"></div>
+        </div>
+        <div class="side">
+          <div class="mark" aria-hidden="true"><span>HX</span><small>STOMP</small></div>
+          <button type="button" class="knob big" id="knobNext" aria-label="Próximo preset"></button>
+        </div>
+      </div>
+      <div class="fs">
+        <button type="button" class="foot" id="fsPrev" aria-label="Preset anterior" title="Anterior"><span class="led"></span><span class="sw">‹</span></button>
+        <button type="button" class="foot" id="fsPlay" aria-label="Tocar uma nota" title="Tocar nota"><span class="led"></span><span class="sw">♪</span></button>
+        <button type="button" class="foot" id="fsNext" aria-label="Próximo preset" title="Próximo"><span class="led"></span><span class="sw">›</span></button>
+      </div>
+    </div>
+    <div class="caption" aria-live="polite"><strong id="capName"></strong><p id="capDesc"></p></div>
+    <div class="buy">
+      <div class="buy-info">
+        <h3 id="packName"></h3>
+        <p id="packDesc"></p>
+      </div>
+      <div class="buy-act">
+        <span class="tag" id="packTag"></span>
+        <div class="price" id="packPrice"></div>
+        <a class="btn" id="buyBtn" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2>Como funciona</h2></div>
+    <div class="how">
+      <div><b>1</b><h3>Compre</h3><p>Fale comigo pelo WhatsApp, pague por Pix e receba o link na hora.</p></div>
+      <div><b>2</b><h3>Baixe</h3><p>Os arquivos vêm em uma pasta com instruções passo a passo.</p></div>
+      <div><b>3</b><h3>Toque</h3><p>Importe no HX Edit, envie para o HX Stomp e escolha o timbre.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2>Dúvidas</h2></div>
+    <details><summary>Funciona no meu pedal?</summary><p>O pack foi feito para a Line 6 HX Stomp. Se você usa outro modelo, como o HX Stomp XL ou o Helix, me chame antes de comprar.</p></details>
+    <details><summary>Como instalo no pedal?</summary><p>Abra o HX Edit, importe os arquivos de preset e envie para o HX Stomp. O guia que vem no pack mostra cada passo.</p></details>
+    <details><summary>Como recebo os arquivos?</summary><p>Por link de download, enviado assim que o pagamento for confirmado.</p></details>
+    <details><summary>Posso pedir um preset sob medida?</summary><p>Sim. Conte qual timbre você procura e eu passo o valor.</p></details>
+  </section>
+
+  <footer><p>© Davi Borges</p></footer>
+</div>
+
+<div class="sticky" id="sticky">
+  <div><b id="stickyPrice"></b><small id="stickyName"></small></div>
+  <a class="btn" id="buyBtn3" target="_blank" rel="noopener">Comprar</a>
+</div>
+
+<script>
+// EDITE AQUI: seu número (com 55 + DDD), o pack, o preço e os 5 presets.
+var WHATSAPP = "5548996772300";
+var PACK = {
+  nome: "HX Pack",
+  preco: "R$ 69",
+  txt: "5 presets incluídos",
+  desc: "Os timbres que todo baixista usa, prontos para tocar. Inclui guia de instalação passo a passo.",
+  presets: [
+    {nome:"Clean", desc:"Limpo, redondo e definido"},
+    {nome:"Chorus", desc:"Timbre limpo com movimento e brilho"},
+    {nome:"Drive Stage 1", desc:"Drive leve, com ataque e corpo"},
+    {nome:"Drive Stage 2", desc:"Drive pesado, mais saturado e agressivo"},
+    {nome:"Micro Synth", desc:"Textura de synth para dar mais peso no seu som"}
+  ]
+};
+
+function $(id){return document.getElementById(id);}
+var link = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Olá, Davi! Quero comprar o " + PACK.nome + ".");
+$("packName").textContent = PACK.nome;
+$("packDesc").textContent = PACK.desc;
+$("packTag").textContent = PACK.txt;
+$("packPrice").textContent = PACK.preco;
+$("stickyPrice").textContent = PACK.preco;
+$("stickyName").textContent = PACK.nome;
+["buyBtn","buyBtn3"].forEach(function(id){$(id).href = link;});
+
+// Pedal: seletor de presets
+var keys = $("keys"), btns = [], cur = 0;
+$("lcdTitle").textContent = PACK.nome;
+function select(i){
+  cur = i;
+  var p = PACK.presets[i];
+  $("knobNext").style.transform = "rotate(" + (-60 + i*30) + "deg)";
+  $("lcdCount").textContent = (i+1) + "/" + PACK.presets.length;
+  $("capName").textContent = p.nome;
+  $("capDesc").textContent = p.desc;
+  btns.forEach(function(b,j){b.setAttribute("aria-pressed", j===i ? "true" : "false");});
+}
+PACK.presets.forEach(function(p,i){
+  var b = document.createElement("button"); b.className = "row"; b.type = "button";
+  var n = document.createElement("b"); n.textContent = i+1;
+  var t = document.createElement("span"); t.textContent = p.nome;
+  b.appendChild(n); b.appendChild(t);
+  b.addEventListener("click", function(){select(i);});
+  keys.appendChild(b); btns.push(b);
+});
+select(0);
+function flash(el){el.classList.add("on");setTimeout(function(){el.classList.remove("on");},180);}
+function go(d){select((cur + d + PACK.presets.length) % PACK.presets.length);}
+$("fsPrev").addEventListener("click", function(){go(-1);flash(this);});
+$("fsNext").addEventListener("click", function(){go(1);flash(this);});
+$("knobNext").addEventListener("click", function(){go(1);});
+$("fsPlay").addEventListener("click", function(){flash(this);sound(FREQ[0]);});
+
+// Barra de compra fixa no celular: aparece depois do topo e some quando o pack está na tela
+var sticky = $("sticky"), packsEl = $("packs"), heroEl = document.querySelector(".hero");
+if("IntersectionObserver" in window){
+  var heroOut = false, packIn = false, footIn = false;
+  function upd(){sticky.classList.toggle("on", heroOut && !packIn && !footIn);}
+  new IntersectionObserver(function(e){heroOut = !e[0].isIntersecting && e[0].boundingClientRect.top < 0; upd();}).observe(heroEl);
+  new IntersectionObserver(function(e){packIn = e[0].isIntersecting; upd();},{threshold:0.15}).observe(packsEl);
+  new IntersectionObserver(function(e){footIn = e[0].isIntersecting; upd();}).observe(document.querySelector("footer"));
+}
+
+// Braço do baixo: toque em uma corda para ouvir e ver a vibração
+var neck = $("neck"), strs = neck.querySelectorAll(".str");
+var YS = [25,53,85,117], FREQ = [41.2,55,73.4,98], ctx;
+function sound(f){
+  try{
+    ctx = ctx || new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==="suspended") ctx.resume();
+    var n = ctx.currentTime, g = ctx.createGain(), lp = ctx.createBiquadFilter();
+    lp.type = "lowpass"; lp.frequency.setValueAtTime(1400,n); lp.frequency.exponentialRampToValueAtTime(250,n+1.2);
+    g.gain.setValueAtTime(0.0001,n); g.gain.exponentialRampToValueAtTime(0.7,n+0.01); g.gain.exponentialRampToValueAtTime(0.0001,n+1.6);
+    [["sawtooth",1,0.6],["triangle",2,0.25]].forEach(function(c){
+      var o = ctx.createOscillator(), og = ctx.createGain();
+      o.type = c[0]; o.frequency.value = f*c[1]; og.gain.value = c[2];
+      o.connect(og); og.connect(lp); o.start(n); o.stop(n+1.7);
+    });
+    lp.connect(g); g.connect(ctx.destination);
+  }catch(e){}
+}
+function vib(i, delay){
+  var el = strs[i];
+  el.classList.remove("hit"); void el.getBoundingClientRect();
+  setTimeout(function(){el.classList.add("hit");}, delay||0);
+}
+neck.addEventListener("click", function(e){
+  var r = neck.getBoundingClientRect(), y = (e.clientY - r.top) / r.height * 140, best = 0;
+  YS.forEach(function(v,i){ if(Math.abs(v-y) < Math.abs(YS[best]-y)) best = i; });
+  vib(best); sound(FREQ[best]);
+});
+neck.addEventListener("keydown", function(e){
+  if(e.key==="Enter"||e.key===" "){
+    e.preventDefault();
+    for(var i=0;i<4;i++){ vib(i,i*70); (function(k){setTimeout(function(){sound(FREQ[k]);},k*70);})(i); }
+  }
+});
+window.addEventListener("load", function(){setTimeout(function(){for(var i=0;i<4;i++) vib(i,i*70);},500);});
+</script>
+</body>
+</html>
