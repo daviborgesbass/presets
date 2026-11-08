@@ -5,64 +5,122 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Davi Borges – Presets de baixo para HX Stomp</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
+  color-scheme:dark;
   box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
-  --bg:#efe5d6;--surface:#fbf5ea;--ink:#241510;--muted:#6b5546;--sun:#b8500a;--sun-ink:#ffffff;--line:#d8c8b0;--string:#6e6f76;--inlay:#d8c8b0;
+  --bg:#0b0d0a;--surface:#141811;--ink:#e8ebe0;--muted:#9fa78e;--sun:#7d8f3f;--sun-ink:#0b0d0a;--line:#262d1f;--string:#c9cdb8;--inlay:#262d1f;--wood:#11140e;--glow:rgba(125,143,63,.2);
   --display:"Anton","Impact","Arial Narrow",sans-serif;--body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#170d09;--surface:#241510;--ink:#f3e9dc;--muted:#b8a493;--sun:#f08a2c;--sun-ink:#170d09;--line:#3a2519;--string:#cfd3da;--inlay:#3a2519}}
-:root[data-theme="dark"]{--bg:#170d09;--surface:#241510;--ink:#f3e9dc;--muted:#b8a493;--sun:#f08a2c;--sun-ink:#170d09;--line:#3a2519;--string:#cfd3da;--inlay:#3a2519}
-html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 4rem);scroll-behavior:smooth}
 *,*::before,*::after{box-sizing:inherit}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6}
-.wrap{max-width:60rem;margin:0 auto;padding:0 1.25rem}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
 h1,h2,h3{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.95;margin:0;letter-spacing:.01em}
-h1{font-size:clamp(3.6rem,19vw,9rem)}
+h1{font-size:clamp(3.8rem,20vw,9.5rem)}
 h2{font-size:clamp(2.2rem,8vw,3.6rem)}
 p{margin:0}
-.hero{padding:3rem 0 1rem}
-.hero .lead{max-width:34rem;margin-top:1.25rem;color:var(--muted);font-size:1.2rem}
-.neck{position:relative;margin:2rem -1.25rem 1.5rem;background:var(--surface);border-block:1px solid var(--line);cursor:pointer;-webkit-tap-highlight-color:transparent}
-.neck svg{display:block;width:100%;height:9rem}
+a:focus-visible,button:focus-visible,.neck:focus-visible,summary:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+
+/* Barra do topo */
+.top{display:flex;align-items:center;justify-content:space-between;padding:1rem 0}
+.brand{font-family:var(--display);font-size:1.4rem;text-transform:uppercase;letter-spacing:.02em}
+.btn{display:inline-block;background:var(--sun);color:var(--sun-ink);font-weight:700;text-decoration:none;padding:.9rem 1.5rem;border-radius:.3rem;font-size:1rem;border:0;cursor:pointer;transition:transform .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn.small{padding:.55rem 1rem;font-size:.9rem}
+
+/* Hero */
+.hero{position:relative;padding:1.5rem 0 1rem}
+.hero::before{content:"";position:absolute;z-index:-1;right:-30%;top:-10%;width:75%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 68%)}
+.hero .lead{max-width:34rem;margin-top:1.5rem;color:var(--muted);font-size:1.2rem}
+
+/* Braço do baixo */
+.neck{position:relative;margin:2.25rem -1.25rem 1.25rem;background:var(--wood);border-block:1px solid var(--line);cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none}
+.neck svg{display:block;width:100%;height:10rem}
+.neck .nut{fill:var(--ink);opacity:.85}
 .neck .fret{stroke:var(--line);stroke-width:2}
 .neck .dot{fill:var(--inlay)}
-.neck .str{stroke:var(--string);fill:none;stroke-linecap:round;transform-box:fill-box;transform-origin:center}
+.neck .str{stroke:var(--string);fill:none;stroke-linecap:round}
 .neck .str.hit{animation:vib .9s ease-out}
-@keyframes vib{0%{transform:scaleY(1)}8%{transform:translateY(-5px)}20%{transform:translateY(4px)}35%{transform:translateY(-3px)}55%{transform:translateY(2px)}75%{transform:translateY(-1px)}100%{transform:none}}
-.hint{font-size:.9rem;color:var(--muted);margin-top:.5rem}
-.btn{display:inline-block;background:var(--sun);color:var(--sun-ink);font-weight:600;text-decoration:none;padding:.9rem 1.5rem;border-radius:.25rem;font-size:1rem}
-.btn:focus-visible,a:focus-visible,.neck:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-section{padding:3rem 0}
-.packs{display:grid;gap:1rem;margin-top:1.75rem}
-@media (min-width:44rem){.packs{grid-template-columns:repeat(3,1fr)}}
-.pack{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--string);border-radius:.25rem;padding:1.5rem;display:flex;flex-direction:column;gap:.75rem}
-.pack.best{border-left-color:var(--sun)}
-.pack h3{font-size:1.9rem}
-.pack ul{margin:0;padding-left:1.1rem;color:var(--muted);flex:1}
-.pack li{margin:.25rem 0}
-.price{font-family:var(--display);font-size:2.6rem;line-height:1}
-.tag{font-size:.9rem;color:var(--sun);font-weight:600}
-.how{display:grid;gap:1.25rem;margin-top:1.5rem;counter-reset:s}
+@keyframes vib{0%{transform:translateY(0)}8%{transform:translateY(-5px)}20%{transform:translateY(4px)}35%{transform:translateY(-3px)}55%{transform:translateY(2px)}75%{transform:translateY(-1px)}100%{transform:none}}
+.hint{font-size:.9rem;color:var(--muted)}
+.hero-cta{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.75rem 1.25rem;align-items:center}
+.hero-cta span{color:var(--muted);font-size:.95rem}
+
+section{padding:3.5rem 0}
+.head{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.75rem}
+.head p{color:var(--muted);max-width:32rem}
+
+/* Pedal (seletor de presets) */
+.pedal{background:#10130d;color:#e8ebe0;border-radius:1rem;padding:1.1rem;border:1px solid #2a3120;box-shadow:0 .5rem 0 #060705,0 1.5rem 2.5rem -1rem rgba(0,0,0,.45)}
+.lcd{background:#070906;border:1px solid #2a3120;border-radius:.5rem;padding:1rem 1.1rem;min-height:7.2rem;display:flex;flex-direction:column;justify-content:center;gap:.35rem}
+.lcd small{color:#a1a98f;font-size:.8rem}
+.lcd strong{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(1.8rem,7vw,2.6rem);line-height:1;color:#a3b94f;letter-spacing:.02em}
+.lcd p{color:#cfd5bf;font-size:.98rem}
+.keys{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin-top:1rem}
+.key{all:unset;box-sizing:border-box;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:.2rem .1rem;-webkit-tap-highlight-color:transparent}
+.key:focus-visible{outline:3px solid #a3b94f;outline-offset:2px;border-radius:.5rem}
+.led{width:.55rem;height:.55rem;border-radius:50%;background:#2a3120;transition:background .2s,box-shadow .2s}
+.cap{width:100%;max-width:3.8rem;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#7a7f6c,#3f4435 60%,#252920);border:2px solid #0b0d0a;box-shadow:0 .25rem 0 #060705;display:grid;place-items:center;font-family:var(--display);font-size:1.3rem;color:#e8ebe0;transition:transform .1s,box-shadow .1s}
+.key:active .cap{transform:translateY(.2rem);box-shadow:0 .05rem 0 #060705}
+.key span.nm{font-size:.74rem;line-height:1.15;color:#a1a98f;font-weight:600;min-height:2.1em}
+.key[aria-pressed="true"] .led{background:#a3b94f;box-shadow:0 0 .7rem #a3b94f}
+.key[aria-pressed="true"] .nm{color:#e8ebe0}
+
+/* Compra */
+.buy{display:grid;gap:1.25rem;margin-top:1.75rem}
+@media (min-width:44rem){.buy{grid-template-columns:1fr auto;align-items:end}}
+.buy-info h3{font-size:clamp(2.2rem,7vw,3rem)}
+.buy-info p{color:var(--muted);margin-top:.5rem;max-width:30rem}
+.buy-act{display:flex;flex-direction:column;gap:.75rem}
+@media (min-width:44rem){.buy-act{align-items:flex-end;text-align:right}}
+.price{font-family:var(--display);font-size:4rem;line-height:1;color:var(--sun)}
+.tag{font-weight:600;font-size:.9rem;color:var(--muted)}
+.included{margin:1.5rem 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:.5rem}
+.included li{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:.35rem .85rem;font-size:.92rem;font-weight:600}
+
+/* Como funciona */
+.how{display:grid;gap:1rem}
 @media (min-width:44rem){.how{grid-template-columns:repeat(3,1fr)}}
-.how div{border-top:4px solid var(--sun);padding-top:.75rem}
+.how div{background:var(--surface);border:1px solid var(--line);border-radius:.5rem;padding:1.25rem 1.25rem 1.5rem}
+.how b{font-family:var(--display);font-weight:400;font-size:3rem;line-height:1;color:var(--sun);display:block;margin-bottom:.5rem}
 .how h3{font-size:1.5rem;margin-bottom:.4rem}
 .how p{color:var(--muted)}
-details{border-top:1px solid var(--line);padding:1rem 0}
+
+/* Dúvidas */
+details{border-top:1px solid var(--line);padding:1.1rem 0}
 details:last-of-type{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;font-weight:600}
-details p{margin-top:.6rem;color:var(--muted)}
-footer{padding:2.5rem 0 3rem;color:var(--muted);font-size:.95rem}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--sun);font-size:1.5rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p{margin-top:.6rem;color:var(--muted);max-width:44rem}
+
+footer{padding:2.5rem 0 4rem;color:var(--muted);font-size:.95rem}
+
+/* Barra de compra fixa no celular */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding:.7rem 1.25rem calc(.7rem + env(safe-area-inset-bottom,0px));display:flex;align-items:center;justify-content:space-between;gap:1rem;transform:translateY(110%);transition:transform .25s ease}
+.sticky.on{transform:none}
+.sticky b{font-family:var(--display);font-weight:400;font-size:1.6rem;display:block;line-height:1}
+.sticky small{color:var(--muted)}
+@media (min-width:44rem){.sticky{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.neck .str.hit{animation:none}.btn,.sticky,.led,.cap{transition:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="top">
+    <span class="brand">Davi Borges</span>
+    <a class="btn small" href="#packs">Ver o pack</a>
+  </div>
+
   <header class="hero">
     <h1>Presets<br>para sua<br>HX Stomp</h1>
     <p class="lead">Timbres de baixo prontos para a sua Line 6 HX Stomp. Você carrega, ajusta o volume e toca. Sem passar horas mexendo em botões. Presets feitos por Davi Borges.</p>
-    <div class="neck" id="neck" role="button" tabindex="0" aria-label="Toque nas cordas para ouvir a vibração">
+    <div class="neck" id="neck" role="button" tabindex="0" aria-label="Toque nas cordas para ouvir o baixo">
       <svg viewBox="0 0 600 140" preserveAspectRatio="none" aria-hidden="true">
+        <rect class="nut" x="0" y="0" width="8" height="140"/>
         <line class="fret" x1="100" y1="0" x2="100" y2="140"/><line class="fret" x1="200" y1="0" x2="200" y2="140"/>
         <line class="fret" x1="300" y1="0" x2="300" y2="140"/><line class="fret" x1="400" y1="0" x2="400" y2="140"/>
         <line class="fret" x1="500" y1="0" x2="500" y2="140"/>
@@ -74,70 +132,155 @@ footer{padding:2.5rem 0 3rem;color:var(--muted);font-size:.95rem}
       </svg>
     </div>
     <p class="hint">Toque nas cordas.</p>
-    <p style="margin-top:1.5rem"><a class="btn" href="#packs">Ver os packs</a></p>
+    <div class="hero-cta">
+      <a class="btn" href="#packs">Ver o pack</a>
+      <span>Pix e entrega por link na hora</span>
+    </div>
   </header>
 
   <section id="packs">
-    <h2>Escolha seu pack</h2>
-    <div class="packs" id="packList"></div>
+    <div class="head">
+      <h2>Seu pack</h2>
+      <p>Toque nos botões do pedal para ver o que cada preset faz.</p>
+    </div>
+    <div class="pedal" role="group" aria-label="Presets do pack">
+      <div class="lcd" aria-live="polite">
+        <small id="lcdNum"></small>
+        <strong id="lcdName"></strong>
+        <p id="lcdDesc"></p>
+      </div>
+      <div class="keys" id="keys"></div>
+    </div>
+    <div class="buy">
+      <div class="buy-info">
+        <h3 id="packName"></h3>
+        <p id="packDesc"></p>
+      </div>
+      <div class="buy-act">
+        <span class="tag" id="packTag"></span>
+        <div class="price" id="packPrice"></div>
+        <a class="btn" id="buyBtn" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+      </div>
+    </div>
   </section>
 
   <section>
-    <h2>Como funciona</h2>
+    <div class="head"><h2>Como funciona</h2></div>
     <div class="how">
-      <div><h3>1. Compre</h3><p>Fale comigo pelo WhatsApp, pague por Pix e receba o link na hora.</p></div>
-      <div><h3>2. Baixe</h3><p>Os arquivos vêm em uma pasta com instruções passo a passo.</p></div>
-      <div><h3>3. Toque</h3><p>Importe no HX Edit, envie para o HX Stomp e escolha o timbre.</p></div>
+      <div><b>1</b><h3>Compre</h3><p>Fale comigo pelo WhatsApp, pague por Pix e receba o link na hora.</p></div>
+      <div><b>2</b><h3>Baixe</h3><p>Os arquivos vêm em uma pasta com instruções passo a passo.</p></div>
+      <div><b>3</b><h3>Toque</h3><p>Importe no HX Edit, envie para o HX Stomp e escolha o timbre.</p></div>
     </div>
   </section>
 
   <section>
-    <h2>Dúvidas</h2>
-    <div style="margin-top:1.25rem">
-      <details><summary>Funciona no meu pedal?</summary><p>Os packs foram feitos para a Line 6 HX Stomp. Se você usa outro modelo, como o HX Stomp XL ou o Helix, me chame antes de comprar.</p></details>
-      <details><summary>Como instalo no pedal?</summary><p>Abra o HX Edit, importe os arquivos de preset e envie para o HX Stomp. O guia que vem no pack mostra cada passo.</p></details>
-      <details><summary>Como recebo os arquivos?</summary><p>Por link de download, enviado assim que o pagamento for confirmado.</p></details>
-      <details><summary>Posso pedir um preset sob medida?</summary><p>Sim. Conte qual timbre você procura e eu passo o valor.</p></details>
-    </div>
+    <div class="head"><h2>Dúvidas</h2></div>
+    <details><summary>Funciona no meu pedal?</summary><p>O pack foi feito para a Line 6 HX Stomp. Se você usa outro modelo, como o HX Stomp XL ou o Helix, me chame antes de comprar.</p></details>
+    <details><summary>Como instalo no pedal?</summary><p>Abra o HX Edit, importe os arquivos de preset e envie para o HX Stomp. O guia que vem no pack mostra cada passo.</p></details>
+    <details><summary>Como recebo os arquivos?</summary><p>Por link de download, enviado assim que o pagamento for confirmado.</p></details>
+    <details><summary>Posso pedir um preset sob medida?</summary><p>Sim. Conte qual timbre você procura e eu passo o valor.</p></details>
   </section>
 
-  <footer><p>© Davi Borges. Line 6 e HX Stomp são marcas de seus respectivos donos.</p></footer>
+  <footer><p>© Davi Borges</p></footer>
 </div>
+
+<div class="sticky" id="sticky">
+  <div><b id="stickyPrice"></b><small id="stickyName"></small></div>
+  <a class="btn" id="buyBtn3" target="_blank" rel="noopener">Comprar</a>
+</div>
+
 <script>
-// EDITE AQUI: seu número (com 55 + DDD), os packs e os preços.
+// EDITE AQUI: seu número (com 55 + DDD), o pack, o preço e os 5 presets.
 var WHATSAPP = "5548996772300";
-var PACKS = [
-  {nome:"Pack Essencial", preco:"R$ 39", itens:["10 presets de baixo","Limpo, drive e slap","Guia de instalação"], txt:"Para começar"},
-  {nome:"Pack Palco", preco:"R$ 69", itens:["25 presets de baixo","Rock, funk, gospel e jazz","Versões com e sem compressor","Guia de instalação"], txt:"Mais vendido", best:true},
-  {nome:"Pack Completo", preco:"R$ 89", itens:["50 presets de baixo","Todos os estilos dos outros packs","Presets para baixo de 4, 5 e 6 cordas","Suporte por WhatsApp"], txt:"Para quem quer o máximo"}
-];
-var list = document.getElementById("packList");
-PACKS.forEach(function(p){
-  var d = document.createElement("div");
-  d.className = "pack" + (p.best ? " best" : "");
-  var t = document.createElement("span"); t.className = "tag"; t.textContent = p.txt;
-  var h = document.createElement("h3"); h.textContent = p.nome;
-  var ul = document.createElement("ul");
-  p.itens.forEach(function(i){var li = document.createElement("li"); li.textContent = i; ul.appendChild(li);});
-  var pr = document.createElement("div"); pr.className = "price"; pr.textContent = p.preco;
-  var a = document.createElement("a"); a.className = "btn"; a.textContent = "Comprar pelo WhatsApp";
-  a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Olá, Davi! Quero comprar o " + p.nome + ".");
-  a.target = "_blank"; a.rel = "noopener";
-  [t,h,ul,pr,a].forEach(function(x){d.appendChild(x);});
-  list.appendChild(d);
-});
-var neck = document.getElementById("neck");
-function pluck(){
-  var s = neck.querySelectorAll(".str");
-  s.forEach(function(el,i){
-    el.classList.remove("hit");
-    void el.getBoundingClientRect();
-    setTimeout(function(){el.classList.add("hit");}, i*70);
-  });
+var PACK = {
+  nome: "HX Pack",
+  preco: "R$ 69",
+  txt: "5 presets incluídos",
+  desc: "Os timbres que todo baixista usa, prontos para tocar. Inclui guia de instalação passo a passo.",
+  presets: [
+    {nome:"Clean", desc:"Limpo, redondo e definido"},
+    {nome:"Chorus", desc:"Timbre limpo com movimento e brilho"},
+    {nome:"Drive Stage 1", desc:"Drive leve, com ataque e corpo"},
+    {nome:"Drive Stage 2", desc:"Drive pesado, mais saturado e agressivo"},
+    {nome:"Micro Synth", desc:"Som de sintetizador para destacar"}
+  ]
+};
+
+function $(id){return document.getElementById(id);}
+var link = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Olá, Davi! Quero comprar o " + PACK.nome + ".");
+$("packName").textContent = PACK.nome;
+$("packDesc").textContent = PACK.desc;
+$("packTag").textContent = PACK.txt;
+$("packPrice").textContent = PACK.preco;
+$("stickyPrice").textContent = PACK.preco;
+$("stickyName").textContent = PACK.nome;
+["buyBtn","buyBtn3"].forEach(function(id){$(id).href = link;});
+
+// Pedal: seletor de presets
+var keys = $("keys"), btns = [];
+function select(i){
+  var p = PACK.presets[i];
+  $("lcdNum").textContent = "Preset " + (i+1) + " de " + PACK.presets.length;
+  $("lcdName").textContent = p.nome;
+  $("lcdDesc").textContent = p.desc;
+  btns.forEach(function(b,j){b.setAttribute("aria-pressed", j===i ? "true" : "false");});
 }
-neck.addEventListener("click", pluck);
-neck.addEventListener("keydown", function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();pluck();}});
-window.addEventListener("load", function(){setTimeout(pluck,500);});
+PACK.presets.forEach(function(p,i){
+  var b = document.createElement("button"); b.className = "key"; b.type = "button";
+  var led = document.createElement("span"); led.className = "led";
+  var cap = document.createElement("span"); cap.className = "cap"; cap.textContent = i+1;
+  var nm = document.createElement("span"); nm.className = "nm"; nm.textContent = p.nome;
+  b.appendChild(led); b.appendChild(cap); b.appendChild(nm);
+  b.addEventListener("click", function(){select(i);});
+  keys.appendChild(b); btns.push(b);
+});
+select(0);
+
+// Barra de compra fixa no celular: aparece depois do topo e some quando o pack está na tela
+var sticky = $("sticky"), packsEl = $("packs"), heroEl = document.querySelector(".hero");
+if("IntersectionObserver" in window){
+  var heroOut = false, packIn = false, footIn = false;
+  function upd(){sticky.classList.toggle("on", heroOut && !packIn && !footIn);}
+  new IntersectionObserver(function(e){heroOut = !e[0].isIntersecting && e[0].boundingClientRect.top < 0; upd();}).observe(heroEl);
+  new IntersectionObserver(function(e){packIn = e[0].isIntersecting; upd();},{threshold:0.15}).observe(packsEl);
+  new IntersectionObserver(function(e){footIn = e[0].isIntersecting; upd();}).observe(document.querySelector("footer"));
+}
+
+// Braço do baixo: toque em uma corda para ouvir e ver a vibração
+var neck = $("neck"), strs = neck.querySelectorAll(".str");
+var YS = [25,53,85,117], FREQ = [41.2,55,73.4,98], ctx;
+function sound(f){
+  try{
+    ctx = ctx || new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==="suspended") ctx.resume();
+    var n = ctx.currentTime, g = ctx.createGain(), lp = ctx.createBiquadFilter();
+    lp.type = "lowpass"; lp.frequency.setValueAtTime(1400,n); lp.frequency.exponentialRampToValueAtTime(250,n+1.2);
+    g.gain.setValueAtTime(0.0001,n); g.gain.exponentialRampToValueAtTime(0.7,n+0.01); g.gain.exponentialRampToValueAtTime(0.0001,n+1.6);
+    [["sawtooth",1,0.6],["triangle",2,0.25]].forEach(function(c){
+      var o = ctx.createOscillator(), og = ctx.createGain();
+      o.type = c[0]; o.frequency.value = f*c[1]; og.gain.value = c[2];
+      o.connect(og); og.connect(lp); o.start(n); o.stop(n+1.7);
+    });
+    lp.connect(g); g.connect(ctx.destination);
+  }catch(e){}
+}
+function vib(i, delay){
+  var el = strs[i];
+  el.classList.remove("hit"); void el.getBoundingClientRect();
+  setTimeout(function(){el.classList.add("hit");}, delay||0);
+}
+neck.addEventListener("click", function(e){
+  var r = neck.getBoundingClientRect(), y = (e.clientY - r.top) / r.height * 140, best = 0;
+  YS.forEach(function(v,i){ if(Math.abs(v-y) < Math.abs(YS[best]-y)) best = i; });
+  vib(best); sound(FREQ[best]);
+});
+neck.addEventListener("keydown", function(e){
+  if(e.key==="Enter"||e.key===" "){
+    e.preventDefault();
+    for(var i=0;i<4;i++){ vib(i,i*70); (function(k){setTimeout(function(){sound(FREQ[k]);},k*70);})(i); }
+  }
+});
+window.addEventListener("load", function(){setTimeout(function(){for(var i=0;i<4;i++) vib(i,i*70);},500);});
 </script>
 </body>
 </html>
